@@ -6,18 +6,16 @@ import os
 #importing images 
 #opencv uses BGR -> face recognition uses rgb
 
-folderPath ='Images'
+folderPath ='images'
 pathList = os.listdir(folderPath)
-print(pathList)
 
 imgList = []
 studentIds = []
 for path in pathList:
     imgList.append(cv2.imread(os.path.join(folderPath,path)))
-    studentIds.append(os.path.splitext(path)[1])
-    
-    print(studentIds)
-#print(len(imgList))
+    studentIds.append(os.path.splitext(path)[0])
+
+print("studentIds: ", studentIds)
 
 def findEncodings(imagesList):
     encodeList = []
@@ -27,9 +25,13 @@ def findEncodings(imagesList):
         encodeList.append(encode)
 
         return encodeList
+
 print("Encoding Started .....")
 encodeListKnown = findEncodings(imgList)
+
+print(encodeListKnown)
 encodeListKnownWithIds = [encodeListKnown, studentIds]
+print(encodeListKnownWithIds[1])
 print("Encoding Completed .....")
 
 file = open("EncodeFile.p",'wb')
